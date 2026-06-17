@@ -69,7 +69,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .about-text p{color:var(--gray-400);margin-bottom:14px;font-size:15px;line-height:1.9;}
 .about-text strong{color:var(--white);font-weight:600;}
 .skills-group{margin-bottom:24px;}
-.skills-group-title{font-family:var(--font-mono);font-size:11px;color:var(--white);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
+.skills-group-title{font-family:var(--font-mono);font-size:11px;color:var(--yellow);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
 .skills-tags{display:flex;flex-wrap:wrap;gap:7px;}
 .skill-tag{font-family:var(--font-mono);font-size:12px;background:var(--gray-800);border:1px solid var(--gray-700);color:var(--gray-100);padding:4px 11px;border-radius:2px;}
 
@@ -85,7 +85,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .project-thumb-overlay{position:absolute;inset:0;background:linear-gradient(to right,transparent 60%,var(--gray-900));}
 
 .project-info{padding:32px;display:flex;flex-direction:column;justify-content:space-between;}
-.project-num{font-family:var(--font-display);font-size:44px;color:rgba(255,212,0,0.22);line-height:1;margin-bottom:8px;font-weight:900;}
+.project-num{font-family:var(--font-display);font-size:44px;color:rgb(255, 213, 0);line-height:1;margin-bottom:8px;font-weight:900;}
 .project-name{font-family:var(--font-display);font-size:32px;letter-spacing:1px;color:var(--white);margin-bottom:6px;}
 .project-sub{font-size:12px;color:var(--gray-400);margin-bottom:14px;line-height:1.6;}
 .project-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:20px;}
@@ -102,7 +102,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .project-link:hover{color:var(--yellow);border-color:var(--yellow);}
 
 /* 자세히 보기 버튼 */
-.project-toggle{width:100%;background:var(--yellow-dim);border:none;border-top:2px solid var(--yellow-border);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;color:var(--yellow);font-family:var(--font-mono);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;transition:all 0.2s;}
+.project-toggle{width:100%;background:var(--yellow-dim);border:none;border-top:2px solid var(--yellow-border);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;color:var(--yellow);font-family:var(--font-mono);font-size:16px;font-weight:900;letter-spacing:2px;text-transform:uppercase;transition:all 0.2s;}
 .project-toggle:hover{background:rgba(255,212,0,0.18);color:#fff;}
 .toggle-arrow{transition:transform 0.3s;font-size:14px;}
 .toggle-arrow.open{transform:rotate(180deg);}
@@ -994,7 +994,7 @@ retriever = vectorstore.as_retriever(
 <!-- EDUCATION -->
 <div class="section-wrap" id="education">
   <div class="section-label">Education</div>
-  <div class="section-title">학력 및 교육</div>
+  <div class="section-title">학력 및 기타</div>
   <div class="edu-list fade-in">
     <div class="edu-item"><div><div class="edu-title">명지대학교 문헌정보학과</div><div class="edu-sub">학사 졸업</div></div><div class="edu-date">2019 ~ 2026.02</div></div>
     <div class="edu-item"><div><div class="edu-title">코리아IT아카데미 — 총 894.5시간</div><div class="edu-sub">SpringBoot/MyBatis · React/Node.js · Python/RAG/HuggingFace · Docker/k8s/AWS</div></div><div class="edu-date">2022.09 ~ 2025.09</div></div>
