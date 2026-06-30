@@ -77,7 +77,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .project-card{background:var(--gray-900);border:1px solid var(--gray-700);border-radius:10px;overflow:hidden;margin-bottom:28px;transition:border-color 0.3s;}
 .project-card:hover{border-color:var(--yellow-border);}
 
-/* 카드 상단:: 스크린샷 + 개요 */
+/* 카드 상단: 스크린샷 + 개요 */
 .project-top{display:grid;grid-template-columns:1.2fr 1fr;gap:0;}
 .project-thumb{position:relative;overflow:hidden;background:#000;}
 .project-thumb img{width:100%;height:100%;min-height:260px;object-fit:cover;object-position:center top;display:block;transition:transform 0.4s;}
@@ -130,7 +130,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 
 /* 다이어그램 카드 (흰 배경) */
 .diagram-card{background:#ffffff;border-radius:8px;padding:20px;margin-bottom:24px;overflow:hidden;}
-.diagram-card-title{font-family:var(--font-mono);font-size:10px;color:#666;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;}
+.diagram-card-title{font-family:var(--font-body);font-size:14px;font-weight:700;color:#1a1a1a;letter-spacing:-0.2px;margin-bottom:14px;}
 .diagram-card img{width:100%;height:auto;display:block;border-radius:4px;cursor:pointer;}
 .diagram-card-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 .diagram-card-grid img{width:100%;height:auto;display:block;border-radius:4px;cursor:pointer;}
@@ -503,7 +503,7 @@ footer{text-align:center;padding:36px;border-top:1px solid var(--gray-700);font-
 
           <!-- 다이어그램 -->
           <div class="diagram-card">
-            <div class="diagram-card-title">시퀀스 다이어그램 — 트랜잭션 원자성 보장</div>
+            <div class="diagram-card-title">트랜잭션 원자성 보장 — 시퀀스 다이어그램</div>
             <img src="images/diag_showu2.png" alt="트랜잭션 원자성 보장 시퀀스 다이어그램" onclick="openLightbox(this.src, this.alt)">
           </div>
 
@@ -552,7 +552,7 @@ footer{text-align:center;padding:36px;border-top:1px solid var(--gray-700);font-
 
           <!-- 다이어그램 -->
           <div class="diagram-card">
-            <div class="diagram-card-title">시퀀스 다이어그램 — 결제 검증 흐름 (개선 전 / 개선 후)</div>
+            <div class="diagram-card-title">결제 검증 흐름 — 시퀀스 다이어그램</div>
             <img src="images/diag_showu3.png" alt="결제 검증 흐름 시퀀스 다이어그램" onclick="openLightbox(this.src, this.alt)">
           </div>
 
@@ -692,7 +692,7 @@ footer{text-align:center;padding:36px;border-top:1px solid var(--gray-700);font-
 
           <!-- 다이어그램 -->
           <div class="diagram-card">
-            <div class="diagram-card-title">데이터 흐름도 — RAG 체인 개선 전 / 개선 후</div>
+            <div class="diagram-card-title">RAG 체인 개선 전/후 흐름 - 데이터 흐름도</div>
             <img src="images/diag_pgpt1.png" alt="RAG 체인 개선 전/후 데이터 흐름도" onclick="openLightbox(this.src, this.alt)">
           </div>
 
@@ -733,7 +733,7 @@ footer{text-align:center;padding:36px;border-top:1px solid var(--gray-700);font-
 
           <!-- 다이어그램 -->
           <div class="diagram-card">
-            <div class="diagram-card-title">아키텍처 다이어그램 — RAG 파이프라인 전체 흐름</div>
+            <div class="diagram-card-title">RAG 파이프라인 전체 흐름 - 아키텍처 다이어그램</div>
             <img src="images/diag_pgpt2.png" alt="RAG 아키텍처 전체 다이어그램" onclick="openLightbox(this.src, this.alt)">
           </div>
 
@@ -897,7 +897,7 @@ retriever = vectorstore.as_retriever(
 
           <!-- 다이어그램 -->
           <div class="diagram-card">
-            <div class="diagram-card-title">아키텍처 다이어그램 — CI/CD 파이프라인 (GitHub → Docker Hub → AWS EC2)</div>
+            <div class="diagram-card-title">CI/CD 파이프라인 (GitHub → Docker Hub → AWS EC2) — 아키텍처 다이어그램</div>
             <img src="images/diag_team1.png" alt="CI/CD 파이프라인 아키텍처 다이어그램" onclick="openLightbox(this.src, this.alt)">
           </div>
 
@@ -936,7 +936,7 @@ retriever = vectorstore.as_retriever(
 
           <!-- 다이어그램 -->
           <div class="diagram-card">
-            <div class="diagram-card-title">구성도 — EBS 볼륨 확장 전 / 후 (EC2 인스턴스)</div>
+            <div class="diagram-card-title">EBS 볼륨 확장 전 / 후 (EC2 인스턴스) — 구성도</div>
             <img src="images/diag_team2.png" alt="EBS 볼륨 확장 전후 구성도" onclick="openLightbox(this.src, this.alt)">
           </div>
 
@@ -975,7 +975,7 @@ retriever = vectorstore.as_retriever(
 
           <!-- 다이어그램 -->
           <div class="diagram-card">
-            <div class="diagram-card-title">플로우 — 알고리즘 + Claude API 병렬 실행 → 균형 점수 비교 → 최적 결과 선택</div>
+            <div class="diagram-card-title">알고리즘 + Claude API 병렬 실행 → 균형 점수 비교 → 최적 결과 선택 — 플로우</div>
             <img src="images/diag_team3.png" alt="알고리즘 + Claude API 병렬 실행 플로우" onclick="openLightbox(this.src, this.alt)">
           </div>
 
