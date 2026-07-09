@@ -1014,6 +1014,332 @@ retriever = vectorstore.as_retriever(
       </div>
     </div>
   </div>
+    <!--
+    ============================================================
+    Nexus MCP — 포트폴리오 섹션 삽입 방법
+    ============================================================
+    1. index.html 에서 TeamBuilder AI (.project-card 세 번째) 닫는 </div> 뒤에
+      아래 블록 전체를 붙여넣으세요.
+    2. 스크린샷 4장을 images/ 폴더에 저장:
+      nexus_inspector1.png ~ nexus_inspector4.png
+    3. 다이어그램 이미지 준비 시 src 경로 수정 후 저장 → push → 배포.
+    ============================================================
+  -->
+
+  <div class="project-card fade-in">
+    <div class="project-top">
+      <div class="project-thumb" onclick="openLightbox(this.querySelector('img').src, 'Nexus MCP — MCP Inspector 검증 화면')">
+        <img src="images/nexus_inspector1.png" alt="Nexus MCP Inspector 화면" style="object-fit:cover;object-position:center top;">
+        <div class="project-thumb-overlay"></div>
+      </div>
+      <div class="project-info">
+        <div>
+          <div class="project-num">04</div>
+          <div class="project-name">Nexus MCP</div>
+          <div class="project-sub">
+            멀티 에이전트 공유 메모리 충돌 해결 MCP 서버<br>
+            2026.07 · 개인 프로젝트
+          </div>
+          <div class="project-tags">
+            <span class="project-tag">Python 3.11</span>
+            <span class="project-tag">MCP SDK (FastMCP)</span>
+            <span class="project-tag">SQLite WAL</span>
+            <span class="project-tag">pytest</span>
+            <span class="project-tag">itertools.count</span>
+          </div>
+          <div class="project-metrics">
+            <div class="metric-row">
+              <span class="metric-name">pytest</span>
+              <span class="metric-val">3개 실패 → 13개 전체 통과</span>
+            </div>
+            <div class="metric-row">
+              <span class="metric-name">핵심 API</span>
+              <span class="metric-val">acquire · release · resolve</span>
+            </div>
+            <div class="metric-row">
+              <span class="metric-name">MCP Inspector</span>
+              <span class="metric-val">localhost:6274 실제 도구 호출 검증</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/byungwook-dev/nexus-mcp" target="_blank" class="project-link">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <button class="project-toggle" onclick="toggleDetail(this)">
+      <span>자세히 보기</span>
+      <span class="toggle-arrow">▼</span>
+    </button>
+
+    <div class="project-detail">
+
+      <!-- 서비스 소개 -->
+      <div style="padding:28px 32px;background:#0d0d0d;border-bottom:1px solid var(--gray-700);">
+        <div style="font-family:var(--font-body);font-size:14px;font-weight:700;color:var(--white);margin-bottom:12px;">서비스 소개</div>
+        <p style="font-size:14px;color:#ccc;line-height:1.9;margin-bottom:10px;">여러 AI 에이전트가 동일한 공유 메모리 키에 동시 접근할 때 발생하는 충돌을 해결하는 MCP(Model Context Protocol) 서버. Python MCP SDK의 <code>FastMCP</code> 위에서 동작하며, 핵심 로직(<code>locks.py</code> / <code>conflicts.py</code> / <code>memory.py</code>)은 MCP SDK에 의존하지 않는 순수 Python으로 분리해 단위 테스트만으로도 검증 가능하게 설계했습니다.</p>
+        <p style="font-size:14px;color:#ccc;line-height:1.9;"><strong style="color:#fff;">acquire_lock</strong>으로 선점권을 확보해야만 메모리 키에 쓸 수 있는 구조로 동시 쓰기 자체를 차단하고, 충돌이 발생하면 <strong style="color:#fff;">resolve_conflict</strong>가 <code>last_write_wins</code> / <code>first_write_wins</code> / <code>merge</code> 전략으로 자동 병합합니다. ShowU 프로젝트에서 MongoDB 트랜잭션으로 Race Condition(동시 예약 중복 9건 → 0건)을 해결한 경험을 AI 에이전트 환경에 적용했습니다.</p>
+      </div>
+
+      <!-- 담당 역할 -->
+      <div style="padding:20px 32px;background:#0a0a0a;border-bottom:1px solid var(--gray-700);">
+        <div style="font-family:var(--font-body);font-size:14px;font-weight:700;color:var(--white);margin-bottom:10px;">담당 역할</div>
+        <p style="font-size:14px;color:#ccc;line-height:1.9;margin-bottom:6px;"><strong style="color:#fff;">MCP 서버 설계 및 구현</strong> — SQLite WAL 모드 기반 락 테이블 설계. acquire_lock / release_lock / resolve_conflict 3개 도구 구현. 소유자 검증(타인 락 해제 차단), TTL 만료 자동 해제, 충돌 해소 전략(last_write_wins / first_write_wins / merge) 구현.</p>
+        <p style="font-size:14px;color:#ccc;line-height:1.9;margin-bottom:6px;"><strong style="color:#fff;">테스트 및 검증</strong> — pytest 13개 테스트 작성 (정상 흐름 · 에러 케이스 · 동시 경쟁 시나리오). MCP Inspector(localhost:6274)에서 stdio 프로토콜로 실제 도구 호출 검증.</p>
+        <p style="font-size:14px;color:#ccc;line-height:1.9;"><strong style="color:#fff;">AI 코딩 컨벤션 문서화</strong> — CLAUDE.md / AGENTS.md 작성. 에이전트가 코드베이스 구조·설계 원칙·테스트 규칙을 즉시 파악할 수 있도록 정리.</p>
+      </div>
+
+      <!-- 갤러리 -->
+      <div class="gallery">
+        <div class="gallery-title">Screenshots — MCP Inspector 검증 화면</div>
+        <div class="gallery-grid" style="grid-template-columns:repeat(2,1fr);">
+          <div class="gallery-item featured" onclick="openLightbox(this.querySelector('img').src, this.querySelector('.gallery-caption').textContent)">
+            <img src="images/nexus_inspector1.png" alt="">
+            <div class="gallery-caption">① 도구 목록 — acquire_lock / release_lock / resolve_conflict</div>
+          </div>
+          <div class="gallery-item featured" onclick="openLightbox(this.querySelector('img').src, this.querySelector('.gallery-caption').textContent)">
+            <img src="images/nexus_inspector2.png" alt="">
+            <div class="gallery-caption">② acquire_lock 성공 — lock_token + expires_at 반환</div>
+          </div>
+          <div class="gallery-item featured" onclick="openLightbox(this.querySelector('img').src, this.querySelector('.gallery-caption').textContent)">
+            <img src="images/nexus_inspector3.png" alt="">
+            <div class="gallery-caption">③ 락 충돌 차단 — agent-b 중복 시도 → success:false (빨간색 강조)</div>
+          </div>
+          <div class="gallery-item featured" onclick="openLightbox(this.querySelector('img').src, this.querySelector('.gallery-caption').textContent)">
+            <img src="images/nexus_inspector4.png" alt="">
+            <div class="gallery-caption">④ merge 전략 — conflict:true 감지 → 두 값 자동 병합 (주황색 강조)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 문제 해결 -->
+      <div class="problems-wrap">
+
+        <!-- 문제 1 -->
+        <div class="problem-block">
+          <div class="problem-title">1. last_write_wins가 오래된 값을 승자로 선택하는 버그</div>
+
+          <div class="diagram-card-title">순서 판정 기준 변경 (time.time → seq) — 데이터 흐름도</div>
+          <div class="diagram-card">
+            <img src="images/diag_nexus1.png" alt="seq 도입 전/후 흐름">
+          </div>
+
+          <div class="prob-section">
+            <div class="prob-label label-red">🔴 문제 원인</div>
+            <div class="prob-content">
+              <ul>
+                <li><code>resolve_conflict</code>의 <code>last_write_wins</code> 전략은 충돌한 두 <code>WriteAttempt</code>를 <code>timestamp</code>(<code>time.time()</code>) 기준으로 비교해 더 나중 값을 승자로 선택하도록 구현했습니다.</li>
+                <li><strong>Windows의 <code>time.time()</code> 해상도는 약 15ms</strong>로, 짧은 시간 내 연속으로 발생한 두 쓰기가 동일한 timestamp를 갖는 경우가 실제로 발생했습니다. 이때 Python <code>max()</code>는 동률(tie)이면 <strong>리스트의 첫 번째 요소</strong>를 반환하므로, 먼저 커밋된(오래된) 값이 승자가 되는 — <code>last_write_wins</code>의 의미론과 정반대인 결과가 나왔습니다.</li>
+                <li>단위 테스트 실행 중 실제로 재현되어 발견했습니다.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="prob-section">
+            <div class="prob-label label-green">🟢 해결 과정</div>
+            <div class="prob-content">
+              <ul>
+                <li><code>models.py</code>에 <code>itertools.count()</code> 기반 <strong>전역 단조 증가 시퀀스 번호(<code>seq</code>)</strong>를 도입해, <code>WriteAttempt</code>·<code>MemoryEntry</code> 생성 시점의 실제 호출 순서를 정확히 기록하도록 했습니다.</li>
+                <li><code>conflicts.py</code>의 <code>last_write_wins</code> / <code>first_write_wins</code> / <code>merge</code> 세 전략 모두 <code>timestamp</code> 대신 <code>seq</code>로 정렬하도록 변경했고, <code>memory.py</code>에서 충돌 재구성 시 기존 엔트리의 <code>seq</code>를 그대로 전달해 실제 생성 순서가 어긋나지 않도록 했습니다.</li>
+              </ul>
+              <div class="keyword-wrap">
+                <span class="keyword-tag">itertools.count()</span>
+                <span class="keyword-tag">seq (전역 단조 증가)</span>
+                <span class="keyword-tag">max(key=lambda x: x.seq)</span>
+                <span class="keyword-tag">결정론적 충돌 해결</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="prob-section">
+            <div class="prob-label label-yellow">🟡 결과</div>
+            <div class="prob-content">
+              <ul>
+                <li>wall-clock 해상도에 더 이상 의존하지 않는 <strong>결정론적</strong> 충돌 해결을 확보했습니다.</li>
+              </ul>
+              <div class="metrics-wrap">
+                <table class="metrics-table">
+                  <thead><tr><th>항목</th><th>개선 전</th><th>개선 후</th></tr></thead>
+                  <tbody>
+                    <tr><td>순서 판정 기준</td><td class="metric-bad">time.time() (~15ms 해상도)</td><td class="metric-good">전역 단조 증가 seq ✅</td></tr>
+                    <tr><td>동시 쓰기 시 승자 판정</td><td class="metric-bad">tie 발생 시 오래된 값이 승자</td><td class="metric-good">항상 논리적으로 나중 값이 승자 ✅</td></tr>
+                    <tr><td>단위 테스트</td><td class="metric-bad">13개 중 3개 실패 ❌</td><td class="metric-good">13개 전체 통과 ✅</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div><!-- /.problem-block -->
+
+        <!-- 문제 2 -->
+        <div class="problem-block">
+          <div class="problem-title">2. mcp dev 실행 시 상대 임포트가 깨지는 문제</div>
+
+          <div class="diagram-card-title">임포트 방식 변경 — 개선 전/후</div>
+          <div class="diagram-card">
+            <img src="images/diag_nexus2.png" alt="임포트 방식 개선 전/후">
+          </div>
+
+          <div class="prob-section">
+            <div class="prob-label label-red">🔴 문제 원인</div>
+            <div class="prob-content">
+              <ul>
+                <li><code>mcp dev src/nexus_mcp/server.py</code>로 서버를 띄우면, MCP CLI가 해당 파일을 <code>importlib</code>로 <strong>패키지 컨텍스트 없이 직접 로드</strong>(<code>exec_module</code>)합니다.</li>
+                <li>이 때문에 <code>server.py</code> 안의 <code>from .conflicts import ...</code> 같은 상대 임포트가 <code>ImportError: attempted relative import with no known parent package</code>로 즉시 실패했습니다.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="prob-section">
+            <div class="prob-label label-green">🟢 해결 과정</div>
+            <div class="prob-content">
+              <ul>
+                <li><code>server.py</code>의 상대 임포트를 절대 임포트(<code>from nexus_mcp.conflicts import ...</code>)로 전환했습니다.</li>
+                <li>프로젝트를 <code>pip install -e ".[dev]"</code>로 editable 설치해 두었기 때문에, 파일이 어떤 방식으로 로드되든 <code>nexus_mcp</code> 패키지가 <code>sys.path</code>에서 정상적으로 resolve됩니다.</li>
+              </ul>
+              <div class="keyword-wrap">
+                <span class="keyword-tag">절대 임포트</span>
+                <span class="keyword-tag">pip install -e ".[dev]"</span>
+                <span class="keyword-tag">editable 설치</span>
+                <span class="keyword-tag">exec_module</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="prob-section">
+            <div class="prob-label label-yellow">🟡 결과</div>
+            <div class="prob-content">
+              <ul>
+                <li>이후 어떤 실행 방식으로도 깨지지 않는 임포트 구조를 유지하게 됐습니다.</li>
+              </ul>
+              <div class="metrics-wrap">
+                <table class="metrics-table">
+                  <thead><tr><th>실행 방식</th><th>개선 전</th><th>개선 후</th></tr></thead>
+                  <tbody>
+                    <tr><td>mcp dev server.py</td><td class="metric-bad">ImportError ❌</td><td class="metric-good">정상 기동 ✅</td></tr>
+                    <tr><td>python -m nexus_mcp</td><td class="metric-good">정상 기동 ✅</td><td class="metric-good">정상 기동 ✅</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div><!-- /.problem-block -->
+
+        <!-- 문제 3 -->
+        <div class="problem-block">
+          <div class="problem-title">3. Inspector 연결 실패 — uv 미설치 + 설정 변경이 반영되지 않는 문제</div>
+
+          <div class="diagram-card-title">Inspector 연결 방식 변경 (mcp dev → npx 직접 실행) — 흐름도</div>
+          <div class="diagram-card">
+            <img src="images/diag_nexus3.png" alt="Inspector 연결 방식 개선 전/후">
+          </div>
+
+          <div class="prob-section">
+            <div class="prob-label label-red">🔴 문제 원인</div>
+            <div class="prob-content">
+              <ul>
+                <li><code>mcp dev</code>가 내부적으로 띄우는 MCP Inspector의 기본 STDIO 실행 커맨드는 <code>uv run --with mcp mcp run ...</code>으로 고정되어 있는데, 로컬 환경에 <code>uv</code>가 설치되어 있지 않아 <code>spawn uv ENOENT</code>로 연결이 계속 실패했습니다.</li>
+                <li>Inspector UI에서 Command/Arguments 필드를 가상환경의 <code>python.exe</code> 경로로 직접 수정해도, Connect를 누를 때마다 <strong>동일한 uv 커맨드로 재시도</strong>가 반복됐습니다 (6회 이상 동일 실패 반복 — Inspector가 최초에 캡처한 기본 설정을 재사용하는 동작으로 판단).</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="prob-section">
+            <div class="prob-label label-green">🟢 해결 과정</div>
+            <div class="prob-content">
+              <ul>
+                <li><code>mcp dev</code> CLI 래퍼를 거치지 않고, <code>npx @modelcontextprotocol/inspector</code>를 가상환경 Python 경로(<code>.venv\Scripts\python.exe -m nexus_mcp</code>)로 <strong>직접 실행</strong>하도록 우회했습니다.</li>
+              </ul>
+              <div class="keyword-wrap">
+                <span class="keyword-tag">npx @modelcontextprotocol/inspector</span>
+                <span class="keyword-tag">DANGEROUSLY_OMIT_AUTH=true</span>
+                <span class="keyword-tag">.venv\Scripts\python.exe</span>
+                <span class="keyword-tag">-m nexus_mcp</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="prob-section">
+            <div class="prob-label label-yellow">🟡 결과</div>
+            <div class="prob-content">
+              <ul>
+                <li>Inspector가 정상적으로 <code>Connected</code> 상태로 전환됐고, <code>acquire_lock</code> / <code>resolve_conflict</code>를 실제 stdio MCP 프로토콜을 통해 호출해 <code>Tool Result: Success</code>를 확인했습니다.</li>
+              </ul>
+              <div class="metrics-wrap">
+                <table class="metrics-table">
+                  <thead><tr><th>항목</th><th>개선 전</th><th>개선 후</th></tr></thead>
+                  <tbody>
+                    <tr><td>Inspector 연결 상태</td><td class="metric-bad">spawn uv ENOENT (6회+ 실패) ❌</td><td class="metric-good">Connected ✅</td></tr>
+                    <tr><td>도구 호출 검증</td><td class="metric-bad">불가</td><td class="metric-good">3개 도구 실제 호출 성공 ✅</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div><!-- /.problem-block -->
+
+        <!-- 문제 4 -->
+        <div class="problem-block">
+          <div class="problem-title">4. Inspector UI가 성공/실패/충돌 상태를 시각적으로 구분하지 못하는 문제</div>
+
+          <div class="diagram-card-title">MutationObserver 패치 — 상태별 색상 강조 흐름</div>
+          <div class="diagram-card">
+            <img src="images/diag_nexus4.png" alt="MutationObserver 패치 흐름">
+          </div>
+
+          <div class="prob-section">
+            <div class="prob-label label-red">🔴 문제 원인</div>
+            <div class="prob-content">
+              <ul>
+                <li><code>acquire_lock</code>과 <code>resolve_conflict</code>는 락 충돌이나 버전 충돌이 발생해도 예외를 던지지 않고 <code>{"success": false, "error": "..."}</code> 같은 정상적인 dict를 반환하도록 설계했습니다. 이는 에이전트가 매번 예외 처리를 하지 않고 <code>success</code> 필드만 확인하면 되게 하려는 의도였지만, 부작용으로 Inspector 화면에서는 <strong>프로토콜 호출 자체가 성공했다는 이유만으로</strong> <code>Tool Result: Success</code>가 항상 초록색으로 표시됐습니다.</li>
+                <li>락 충돌(실패)이나 쓰기 충돌 상황을 캡처해도 스크린샷만 보면 전부 "성공"한 것처럼 보여, 포트폴리오용 자료로 쓰기에 가독성이 떨어졌습니다.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="prob-section">
+            <div class="prob-label label-green">🟢 해결 과정</div>
+            <div class="prob-content">
+              <ul>
+                <li>Inspector는 <code>npx</code>로 매번 받아오는 서드파티 패키지라 소스 코드를 직접 고칠 수 없었습니다. 대신 로컬 <code>npx</code> 캐시에 배포된 정적 파일(<code>client/dist/index.html</code>)을 찾아, <code>&lt;/body&gt;</code> 직전에 순수 JavaScript를 직접 삽입했습니다.</li>
+                <li>응답 JSON에서 <code>success: false</code>가 감지되면 해당 텍스트와 <code>Tool Result</code> 배지를 빨간색으로, <code>conflict: true</code>가 감지되면 해당 줄을 주황색으로 강조하도록 만들었습니다.</li>
+                <li>React가 결과 패널을 다시 렌더링해도 스타일이 유지되도록 <strong>MutationObserver</strong>로 DOM 변화를 계속 감시하는 방식을 택했습니다.</li>
+              </ul>
+              <div class="keyword-wrap">
+                <span class="keyword-tag">MutationObserver</span>
+                <span class="keyword-tag">npx 캐시 정적 파일 패치</span>
+                <span class="keyword-tag">success: false → 빨간색</span>
+                <span class="keyword-tag">conflict: true → 주황색</span>
+                <span class="keyword-tag">React 재렌더링 내성</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="prob-section">
+            <div class="prob-label label-yellow">🟡 결과</div>
+            <div class="prob-content">
+              <ul>
+                <li>브라우저 새로고침, Inspector 재시작을 거친 뒤에도 별도 조작 없이 스타일이 그대로 적용되는 것을 확인했고, 이후 모든 스크린샷에서 성공/실패/충돌 상태를 한눈에 구분할 수 있게 됐습니다.</li>
+              </ul>
+              <div class="metrics-wrap">
+                <table class="metrics-table">
+                  <thead><tr><th>항목</th><th>개선 전</th><th>개선 후</th></tr></thead>
+                  <tbody>
+                    <tr><td>실패 응답(success:false) 표시</td><td class="metric-bad">초록색 "Success" (오해 소지) ❌</td><td class="metric-good">빨간색으로 즉시 구분 ✅</td></tr>
+                    <tr><td>충돌 응답(conflict:true) 표시</td><td class="metric-bad">일반 텍스트와 동일</td><td class="metric-good">주황색 배경 강조 ✅</td></tr>
+                    <tr><td>React 재렌더링 후 지속성</td><td>—</td><td class="metric-good">MutationObserver로 자동 유지 ✅</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div><!-- /.problem-block -->
+
+      </div><!-- /.problems-wrap -->
+
+    </div><!-- /.project-detail -->
+  </div><!-- /.project-card -->
 
 </div><!-- /projects -->
 
