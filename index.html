@@ -260,7 +260,7 @@ footer{text-align:center;padding:36px;border-top:1px solid var(--gray-700);font-
       </div>
       <div class="stat-item">
         <div class="stat-num">100%</div>
-        <div class="stat-label">CI/CD 배포 성공률</div>
+        <div class="stat-label">CI/CD 성공률 70%→100%</div>
       </div>
       <div class="stat-item">
         <div class="stat-num">92.8</div>
@@ -283,33 +283,33 @@ footer{text-align:center;padding:36px;border-top:1px solid var(--gray-700);font-
   <div class="section-title">소개</div>
   <div class="about-grid fade-in">
     <div class="about-text">
-      <p>명지대학교를 재학중이던 2022년부터 3년간 <strong>894.5시간</strong>의 학원 교육과 실전 프로젝트를 통해 개발 역량을 쌓았습니다.</p>
-      <p><strong>PrivateGPT</strong>에서 임베딩 캐싱으로 처리 시간을 <strong>118초 → 0.09초</strong>로 단축했고, <strong>TeamBuilder AI</strong> 공모전(506팀 참가)에서 6단계 하이브리드 알고리즘과 Claude Sonnet 4를 병렬 실행해 균형 점수 <strong>92.8점</strong>을 달성했습니다.</p>
-      <p>세 프로젝트 모두 문제를 직접 재현하고 수치로 검증했습니다.</p>
+      <p>2022년부터 3년간 웹 풀스택 · AI/NLP · DevOps/클라우드 전반을 직접 설계하고 배포하는 방식으로 개발 역량을 쌓았습니다.</p>
+      <p><strong>ShowU</strong>에서 k6 동시 200명 부하테스트로 Race Condition을 재현해 <strong>중복 예약 9건 → 0건</strong>을 달성했고, <strong>PrivateGPT</strong>에서 임베딩 캐싱으로 처리 시간을 <strong>118초 → 0.09초</strong>로 단축했습니다. <strong>TeamBuilder AI</strong> 공모전(506팀)에서 CI/CD 배포 성공률을 <strong>~70% → 100%</strong>로 개선했고, <strong>Nexus MCP</strong>에서 멀티 에이전트 공유 메모리 충돌을 SQLite WAL + 분산 락으로 해결했습니다.</p>
+      <p>네 프로젝트 모두 문제를 직접 재현하고 수치로 검증했습니다.</p>
     </div>
     <div>
       <div class="skills-group">
         <div class="skills-group-title">Backend</div>
         <div class="skills-tags">
-          <span class="skill-tag">Node.js</span><span class="skill-tag">Express</span><span class="skill-tag">Spring Boot</span><span class="skill-tag">Python</span><span class="skill-tag">MyBatis</span>
+          <span class="skill-tag">Java</span><span class="skill-tag">Python</span><span class="skill-tag">Node.js</span><span class="skill-tag">Spring Boot</span><span class="skill-tag">MyBatis</span><span class="skill-tag">Express</span>
         </div>
       </div>
       <div class="skills-group">
         <div class="skills-group-title">Frontend</div>
         <div class="skills-tags">
-          <span class="skill-tag">React 18</span><span class="skill-tag">Next.js 16</span><span class="skill-tag">TypeScript</span><span class="skill-tag">Redux</span><span class="skill-tag">Tailwind CSS</span>
+          <span class="skill-tag">JavaScript</span><span class="skill-tag">TypeScript</span><span class="skill-tag">React 18</span><span class="skill-tag">Next.js 16</span><span class="skill-tag">Redux</span><span class="skill-tag">Tailwind CSS</span>
         </div>
       </div>
       <div class="skills-group">
         <div class="skills-group-title">AI / NLP</div>
         <div class="skills-tags">
-          <span class="skill-tag">LangChain</span><span class="skill-tag">Claude API</span><span class="skill-tag">RAG</span><span class="skill-tag">FAISS</span><span class="skill-tag">HuggingFace</span>
+          <span class="skill-tag">LangChain</span><span class="skill-tag">Claude API</span><span class="skill-tag">MCP SDK</span><span class="skill-tag">RAG</span><span class="skill-tag">FAISS</span><span class="skill-tag">HuggingFace</span><span class="skill-tag">Ollama</span>
         </div>
       </div>
       <div class="skills-group">
         <div class="skills-group-title">DevOps / DB</div>
         <div class="skills-tags">
-          <span class="skill-tag">Docker</span><span class="skill-tag">AWS EC2</span><span class="skill-tag">GitHub Actions</span><span class="skill-tag">MongoDB</span><span class="skill-tag">OracleDB</span><span class="skill-tag">k6</span>
+          <span class="skill-tag">Docker</span><span class="skill-tag">AWS EC2</span><span class="skill-tag">GitHub Actions</span><span class="skill-tag">MongoDB</span><span class="skill-tag">SQLite</span><span class="skill-tag">OracleDB</span><span class="skill-tag">k6</span>
         </div>
       </div>
     </div>
@@ -323,6 +323,7 @@ footer{text-align:center;padding:36px;border-top:1px solid var(--gray-700);font-
   <div class="section-label">Projects</div>
   <div class="section-title">프로젝트</div>
 
+  <!-- ══════════════ ShowU ══════════════ -->
   <!-- ══════════════ ShowU ══════════════ -->
   <div class="project-card fade-in">
     <div class="project-top">
@@ -357,10 +358,18 @@ footer{text-align:center;padding:36px;border-top:1px solid var(--gray-700);font-
     </button>
 
     <div class="project-detail">
+      <!-- 기획 배경 -->
+      <div style="padding:20px 32px;background:#0d0d0d;border-bottom:1px solid var(--gray-700);">
+        <div style="font-family:var(--font-body);font-size:14px;font-weight:700;color:var(--white);margin-bottom:10px;">기획 배경</div>
+        <p style="font-size:14px;color:#ccc;line-height:1.9;margin-bottom:8px;">팀원 중 뮤지컬에 관심 있는 분이 있었고, 당시 인터파크 같은 단순 티켓 예매 사이트는 있었지만 뮤지컬·연극 배우 지망생을 위한 인프라는 빈약했습니다. 공간 대여, 오디션 공지, 커뮤니티 등 지망생에게 필요한 기능과, 예술을 좋아하는 일반인을 위한 티켓 예매·VOD·굿즈 구매를 한 곳에서 해결할 수 있는 통합 플랫폼이 부족하다는 걸 확인했습니다.</p>
+        <p style="font-size:14px;color:#ccc;line-height:1.9;">팀원 6명이 직접 시장 조사와 도메인 검색을 통해 이 니즈를 검증했고, 예술가 지망생과 예술 애호가 두 타겟을 모두 아우르는 통합 플랫폼으로 ShowU를 기획했습니다.</p>
+      </div>
+
       <!-- 서비스 소개 -->
       <div style="padding:28px 32px;background:#0d0d0d;border-bottom:1px solid var(--gray-700);">
         <div style="font-family:var(--font-body);font-size:14px;font-weight:700;color:var(--white);margin-bottom:12px;">서비스 소개</div>
-        <p style="font-size:14px;color:#ccc;line-height:1.9;">예술가 지망생과 팬을 연결하는 통합 플랫폼. 공연 티켓 예매, 공간 대여, 굿즈/경매 쇼핑, VOD 스트리밍, 커뮤니티 기능 제공.</p>
+        <p style="font-size:14px;color:#ccc;line-height:1.9;margin-bottom:10px;">예술가 지망생과 팬을 연결하는 통합 플랫폼. 공연 티켓 예매·공간 대여·굿즈/경매·VOD·커뮤니티 6개 도메인이 하나의 결제 흐름으로 연결된 구조로, k6 동시 200명 부하테스트로 Race Condition과 결제 위변조를 직접 재현하고 해결했습니다.</p>
+        <p style="font-size:14px;color:#ccc;line-height:1.9;"><strong style="color:#fff;">DB 레벨 Unique Index → 애플리케이션 레벨 트랜잭션 → Toss 서버사이드 검증</strong>으로 이어지는 3단계 방어 구조로 데이터 정합성과 결제 보안을 완성했습니다.</p>
       </div>
       <!-- 담당 역할 -->
       <div style="padding:20px 32px;background:#0a0a0a;border-bottom:1px solid var(--gray-700);">
@@ -429,6 +438,11 @@ footer{text-align:center;padding:36px;border-top:1px solid var(--gray-700);font-
       </div>
 
       <!-- 문제 해결 -->
+      <!-- 마주친 기술적 문제 헤더 -->
+      <div style="padding:20px 32px;background:#0a0a0a;border-bottom:1px solid var(--gray-700);">
+        <div style="font-family:var(--font-body);font-size:16px;font-weight:700;color:var(--white);border-left:3px solid var(--yellow);padding-left:12px;">마주친 기술적 문제</div>
+      </div>
+
       <div class="problems-wrap">
 
         <!-- 문제 1 -->
@@ -611,6 +625,7 @@ footer{text-align:center;padding:36px;border-top:1px solid var(--gray-700);font-
   </div><!-- /project-card ShowU -->
 
   <!-- ══════════════ PrivateGPT ══════════════ -->
+  <!-- ══════════════ PrivateGPT ══════════════ -->
   <div class="project-card fade-in">
     <div class="project-top">
       <div class="project-thumb" onclick="openLightbox(this.querySelector('img').src, 'PrivateGPT — 메인 화면')">
@@ -642,11 +657,11 @@ footer{text-align:center;padding:36px;border-top:1px solid var(--gray-700);font-
     </button>
     <div class="project-detail">
 
-      <!-- 선정 이유 블록쿼트 -->
+      <!-- 기획 배경 -->
       <div style="padding:20px 32px;background:#0d0d0d;border-bottom:1px solid var(--gray-700);">
-        <blockquote style="border-left:3px solid var(--yellow);padding-left:16px;margin:0;font-size:14px;color:var(--gray-400);line-height:1.9;font-style:italic;">
-          5개월간의 LangChain/RAG/NLP 이론 학습을 바탕으로, 9개 챗봇 프로젝트 중 프라이버시와 성능 최적화에 집중한 PrivateGPT를 포트폴리오 대표 프로젝트로 선정했습니다.
-        </blockquote>
+        <div style="font-family:var(--font-body);font-size:14px;font-weight:700;color:var(--white);margin-bottom:10px;">기획 배경</div>
+        <p style="font-size:14px;color:#ccc;line-height:1.9;margin-bottom:12px;">🔴 <strong style="color:#fff;">외부 LLM API (OpenAI 등)</strong> — 문서 데이터가 외부 서버로 전송되어 기업·의료·법무 등 민감한 도메인에서 프라이버시 문제 발생. API 비용도 지속 발생.</p>
+        <p style="font-size:14px;color:#ccc;line-height:1.9;">✅ <strong style="color:var(--yellow);">PrivateGPT</strong> — 5개월간의 LangChain/RAG/NLP 학습을 바탕으로, 9개 챗봇 프로젝트 중 외부 API 호출 없이 완전 로컬에서 동작하는 프라이버시 보장 RAG 챗봇을 포트폴리오 대표 프로젝트로 선정했습니다.</p>
       </div>
 
       <!-- 서비스 소개 -->
@@ -683,6 +698,11 @@ footer{text-align:center;padding:36px;border-top:1px solid var(--gray-700);font-
             <img src="images/pgpt3.png" alt=""><div class="gallery-caption">임베딩 캐싱 성능 측정 — 캐시 없음 118.27초 → 캐시 있음 0.09초 (99.9% 단축)</div>
           </div>
         </div>
+      </div>
+
+      <!-- 마주친 기술적 문제 헤더 -->
+      <div style="padding:20px 32px;background:#0a0a0a;border-bottom:1px solid var(--gray-700);">
+        <div style="font-family:var(--font-body);font-size:16px;font-weight:700;color:var(--white);border-left:3px solid var(--yellow);padding-left:12px;">마주친 기술적 문제</div>
       </div>
 
       <div class="problems-wrap">
@@ -840,11 +860,11 @@ retriever = vectorstore.as_retriever(
     </button>
     <div class="project-detail">
 
-      <!-- 공모전 블록쿼트 -->
+      <!-- 기획 배경 -->
       <div style="padding:20px 32px;background:#0d0d0d;border-bottom:1px solid var(--gray-700);">
-        <blockquote style="border-left:3px solid var(--yellow);padding-left:16px;margin:0;font-size:14px;color:var(--gray-400);line-height:1.9;font-style:italic;">
-          제1회 K.I.T. 바이브코딩 공모전 출품작 (506팀 참가)
-        </blockquote>
+        <div style="font-family:var(--font-body);font-size:14px;font-weight:700;color:var(--white);margin-bottom:10px;">기획 배경</div>
+        <p style="font-size:14px;color:#ccc;line-height:1.9;margin-bottom:8px;">제1회 K.I.T. 바이브코딩 공모전(506팀)에서 교육 현장의 페인포인트를 해결하는 서비스를 개발하게 됐습니다. 팀원 중 지인인 은퇴한 초등학교 교사에게 직접 인터뷰한 결과, 학년 담임 선생님 전체가 한자리에 모여 생활기록부를 보며 반배정을 수작업으로 조합하는데 <strong style="color:#fff;">하루 종일</strong> 걸린다는 것을 확인했습니다.</p>
+        <p style="font-size:14px;color:#ccc;line-height:1.9;">성적·성격·성향·특이사항(미술 특기생, 학급 반장 등) 등 복합 조건을 동시에 처리해야 하는 문제에 알고리즘과 LLM API(공모전 필수 요건)를 병렬 실행하는 하이브리드 구조로 접근했습니다. LLM 장애 시 알고리즘 결과로 즉시 폴백해 서비스 연속성을 보장합니다.</p>
       </div>
 
       <!-- 서비스 소개 -->
@@ -888,6 +908,11 @@ retriever = vectorstore.as_retriever(
             <img src="images/team5.png" alt=""><div class="gallery-caption">GitHub Actions 배포 성공 목록 — 평균 약 2분, 성공률 100%</div>
           </div>
         </div>
+      </div>
+
+      <!-- 마주친 기술적 문제 헤더 -->
+      <div style="padding:20px 32px;background:#0a0a0a;border-bottom:1px solid var(--gray-700);">
+        <div style="font-family:var(--font-body);font-size:16px;font-weight:700;color:var(--white);border-left:3px solid var(--yellow);padding-left:12px;">마주친 기술적 문제</div>
       </div>
 
       <div class="problems-wrap">
@@ -1014,7 +1039,9 @@ retriever = vectorstore.as_retriever(
       </div>
     </div>
   </div>
-    <!--
+
+  <!-- ══════════════ Nexus MCP ══════════════ -->
+  <!--
     ============================================================
     Nexus MCP — 포트폴리오 섹션 삽입 방법
     ============================================================
@@ -1075,6 +1102,14 @@ retriever = vectorstore.as_retriever(
 
     <div class="project-detail">
 
+      <!-- 기획 배경 -->
+      <div style="padding:20px 32px;background:#0d0d0d;border-bottom:1px solid var(--gray-700);">
+        <div style="font-family:var(--font-body);font-size:14px;font-weight:700;color:var(--white);margin-bottom:10px;">기획 배경</div>
+        <p style="font-size:14px;color:#ccc;line-height:1.9;margin-bottom:6px;">🔴 <strong style="color:#fff;">Anthropic 공식 Memory MCP</strong> — JSON 파일 기반이라 여러 에이전트가 동시에 쓰면 파일이 손상될 수 있음. 동시 접근 제어 없음.</p>
+        <p style="font-size:14px;color:#ccc;line-height:1.9;margin-bottom:12px;">🔴 <strong style="color:#fff;">유사 프로젝트 (mnehmos/synch-mcp 등)</strong> — 락 관리는 있으나, 충돌 발생 시 어떤 값을 채택할지 결정하는 충돌 해결 전략이 MCP 도구 레벨에서 분리되어 있지 않음.</p>
+        <p style="font-size:14px;color:#ccc;line-height:1.9;">✅ <strong style="color:var(--yellow);">Nexus MCP</strong> — ShowU에서 Race Condition(중복 예약 9건 → 0건)을 해결한 경험을 AI 에이전트 환경에 적용해, 동시 접근 제어와 충돌 해결 전략을 명확히 분리한 경량 MCP 서버를 만들게 됐습니다.</p>
+      </div>
+
       <!-- 서비스 소개 -->
       <div style="padding:28px 32px;background:#0d0d0d;border-bottom:1px solid var(--gray-700);">
         <div style="font-family:var(--font-body);font-size:14px;font-weight:700;color:var(--white);margin-bottom:12px;">서비스 소개</div>
@@ -1114,6 +1149,11 @@ retriever = vectorstore.as_retriever(
       </div>
 
       <!-- 문제 해결 -->
+      <!-- 마주친 기술적 문제 헤더 -->
+      <div style="padding:20px 32px;background:#0a0a0a;border-bottom:1px solid var(--gray-700);">
+        <div style="font-family:var(--font-body);font-size:16px;font-weight:700;color:var(--white);border-left:3px solid var(--yellow);padding-left:12px;">마주친 기술적 문제</div>
+      </div>
+
       <div class="problems-wrap">
 
         <!-- 문제 1 -->
@@ -1285,6 +1325,7 @@ retriever = vectorstore.as_retriever(
 
           <div class="diagram-card-title">MutationObserver 패치 — 상태별 색상 강조 흐름</div>
           <div class="diagram-card">
+            <!-- 이미지들 추가예정 -->
             <img src="images/diag_nexus4.png" alt="MutationObserver 패치 흐름">
           </div>
 
@@ -1341,6 +1382,7 @@ retriever = vectorstore.as_retriever(
     </div><!-- /.project-detail -->
   </div><!-- /.project-card -->
 
+
 </div><!-- /projects -->
 
 <div class="divider"></div>
@@ -1365,7 +1407,7 @@ retriever = vectorstore.as_retriever(
   <div class="section-title">학력 및 기타</div>
   <div class="edu-list fade-in">
     <div class="edu-item"><div><div class="edu-title">명지대학교 문헌정보학과</div><div class="edu-sub">학사 졸업</div></div><div class="edu-date">2019 ~ 2026.02</div></div>
-    <div class="edu-item"><div><div class="edu-title">코리아IT아카데미 — 총 894.5시간</div><div class="edu-sub">SpringBoot/MyBatis · React/Node.js · Python/RAG/HuggingFace · Docker/k8s/AWS</div></div><div class="edu-date">2022.09 ~ 2025.09</div></div>
+    <div class="edu-item"><div><div class="edu-title">코리아IT아카데미 — 총 894.5시간</div><div class="edu-sub">SpringBoot/MyBatis · React/Node.js · AI/NLP · Docker/k8s/AWS</div></div><div class="edu-date">2022.09 ~ 2025.09</div></div>
     <div class="edu-item"><div><div class="edu-title">OPIc IH (Intermediate High)</div><div class="edu-sub">영어 말하기 시험</div></div><div class="edu-date">2026.03.18 취득</div></div>
     <div class="edu-item"><div><div class="edu-title">육군 병장 만기제대</div><div class="edu-sub">병역 완료</div></div><div class="edu-date">2020.05 ~ 2021.11</div></div>
   </div>
