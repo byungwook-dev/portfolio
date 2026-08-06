@@ -630,23 +630,24 @@ footer{text-align:center;padding:36px;border-top:1px solid var(--gray-700);font-
                 </div>
               </div>
             </div>
+            
             <div class="problem-block">
-              <div style="font-size:15px;font-weight:700;color:var(--white);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--gray-700);">2. Seat/Rental 컬렉션 분리로 인한 데이터 불일치 (부분 저장)</div>
+              <div style="font-size:15px;font-weight:700;color:var(--white);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--gray-700);">2. 예약·결제 컬렉션 분리로 인한 데이터 불일치 (부분 저장)</div>
               <div class="diagram-card-title">트랜잭션 원자성 보장 — 시퀀스 다이어그램</div>
               <div class="diagram-card"><img src="images/diag_showu2.png" alt="트랜잭션 원자성 보장 시퀀스 다이어그램"></div>
               <div class="prob-section">
                 <div class="prob-label label-red">문제 원인</div>
                 <div class="prob-content"><ul>
-                  <li>좌석 예약(Seat)과 공간 대여(Rental)는 각각 별도 컬렉션에 저장되는 구조였습니다.</li>
-                  <li>Seat 저장 성공 후 Rental 저장 단계에서 오류가 발생하면, Seat 데이터만 남고 Rental은 저장되지 않는 <strong>부분 저장 상태</strong>가 발생했습니다.</li>
-                  <li>예약은 완료됐지만 대여 정보가 없는 데이터 불일치가 생겨, 관리자가 수동으로 정합성을 맞춰야 하는 운영 리스크가 있었습니다.</li>
+                  <li>티켓 예매는 Seat(좌석 예약)와 TicketPayment(결제 정보), 공간 대여는 Rental(대여 예약)과 RentalPayment(결제 정보)가 각각 별도 컬렉션에 저장되는 구조였습니다.</li>
+                  <li>예약 저장 성공 후 결제 정보 저장 단계에서 오류가 발생하면, 예약 데이터만 남고 결제 정보가 저장되지 않는 <strong>부분 저장 상태</strong>가 발생했습니다.</li>
+                  <li>예약은 완료됐지만 결제 정보가 없는 데이터 불일치가 생겨, 관리자가 수동으로 정합성을 맞춰야 하는 운영 리스크가 있었습니다.</li>
                 </ul></div>
               </div>
               <div class="prob-section">
                 <div class="prob-label label-green">해결 과정</div>
                 <div class="prob-content">
                   <ul>
-                    <li><strong>mongoose.startSession()</strong>으로 트랜잭션 세션을 시작하고, Seat와 Rental 저장 모두 동일 세션 안에서 처리했습니다.</li>
+                    <li><strong>mongoose.startSession()</strong>으로 트랜잭션 세션을 시작하고, 예약과 결제 정보 저장 모두 동일 세션 안에서 처리했습니다.</li>
                     <li>두 저장 작업을 하나의 트랜잭션으로 묶어 어느 한 쪽이 실패하면 <strong>abortTransaction()</strong>으로 전체를 롤백하도록 구성했습니다.</li>
                     <li>Race Condition 해결에서 적용한 트랜잭션 구조를 공간 대여 도메인에 동일하게 확장 적용해 서비스 전반의 데이터 정합성을 보장했습니다.</li>
                   </ul>
@@ -656,13 +657,13 @@ footer{text-align:center;padding:36px;border-top:1px solid var(--gray-700);font-
               <div class="prob-section">
                 <div class="prob-label label-yellow">결과</div>
                 <div class="prob-content"><ul>
-                  <li>Seat 저장 성공 + Rental 저장 실패 시나리오에서 Seat가 자동 롤백되어 <strong>부분 저장 케이스가 완전히 제거</strong>됐습니다.</li>
-                  <li>수동 정합성 작업 없이 예약-대여 데이터가 항상 일치하는 구조가 됐습니다.</li>
+                  <li>예약 저장 성공 + 결제 정보 저장 실패 시나리오에서 예약이 자동 롤백되어 <strong>부분 저장 케이스가 완전히 제거</strong>됐습니다.</li>
+                  <li>수동 정합성 작업 없이 예약·결제 데이터가 항상 일치하는 구조가 됐습니다.</li>
                   <li>Race Condition 해결(DB 레벨 Unique Index) → 트랜잭션 원자성 보장(애플리케이션 레벨)으로 이어지는 <strong>2단계 데이터 정합성 방어 구조</strong>를 완성했습니다.</li>
                 </ul></div>
               </div>
             </div>
-
+           
             <div class="problem-block">
               <div style="font-size:15px;font-weight:700;color:var(--white);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--gray-700);">3. 결제 금액 클라이언트 위변조 가능성</div>
               <div class="diagram-card-title">결제 검증 흐름 — 시퀀스 다이어그램</div>
