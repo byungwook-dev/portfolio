@@ -738,8 +738,8 @@ footer{text-align:center;padding:36px;border-top:1px solid var(--gray-700);font-
             <p style="font-size:14px;color:#ccc;line-height:1.9;margin-bottom:8px;">🔴 <strong style="color:#fff;">외부 LLM API(OpenAI 등)</strong> — 문서 데이터가 외부 서버로 전송되어 기업·의료·법무 등 민감한 도메인에서 프라이버시 문제 발생. API 비용도 지속 발생.</p>
             <p style="font-size:14px;color:#ccc;line-height:1.9;margin-bottom:16px;">✅ <strong style="color:var(--yellow);">PrivateGPT</strong> — 5개월간의 LangChain/RAG/NLP 학습을 바탕으로, 9개 챗봇 프로젝트 중 외부 API 호출 없이 완전 로컬에서 동작하는 프라이버시 보장 RAG 챗봇을 포트폴리오 대표 프로젝트로 선정했습니다.</p>
             <p style="font-size:13px;font-weight:700;color:var(--yellow);letter-spacing:1px;margin-bottom:8px;margin-top:20px;padding-top:16px;border-top:1px solid var(--gray-700);">서비스 소개</p>
-            <p style="font-size:14px;color:#ccc;line-height:1.9;margin-bottom:8px;">업로드한 문서에 대해 질문할 수 있는 로컬 기반 RAG 챗봇. 임베딩 모델과 LLM 모두 로컬(Ollama + Mistral)에서 실행되어 외부 API 호출 없이 동작하며, 민감한 문서도 안전하게 처리할 수 있는 프라이빗 AI 시스템.</p>
-            <p style="font-size:14px;color:#ccc;line-height:1.9;margin-bottom:16px;">OpenAI API를 사용하면 문서 데이터가 외부 서버로 전송되어 프라이버시 문제가 발생하고 API 호출 비용도 발생합니다. 임베딩과 LLM 모두 로컬에서 실행하는 <strong style="color:var(--yellow);">Ollama + Mistral</strong> 조합을 선택해 "Private"GPT라는 이름처럼 데이터가 외부로 나가지 않는 구조를 구현했습니다.</p>
+            <p style="font-size:14px;color:#ccc;line-height:1.9;margin-bottom:8px;">업로드한 문서에 대해 질문할 수 있는 로컬 기반 RAG 챗봇. 임베딩 모델과 LLM 모두 로컬(Ollama, 임베딩은 nomic-embed-text / LLM은 Mistra)에서 실행되어 외부 API 호출 없이 동작하며, 민감한 문서도 안전하게 처리할 수 있는 프라이빗 AI 시스템.</p>
+            <p style="font-size:14px;color:#ccc;line-height:1.9;margin-bottom:16px;">OpenAI API를 사용하면 문서 데이터가 외부 서버로 전송되어 프라이버시 문제가 발생하고 API 호출 비용도 발생합니다. 임베딩과 LLM 모두 로컬에서 실행하는 <strong style="color:var(--yellow);">Ollama(임베딩: nomic-embed-text, LLM: Mistral)</strong> 조합을 선택해 "Private"GPT라는 이름처럼 데이터가 외부로 나가지 않는 구조를 구현했습니다.</p>
             <p style="font-size:13px;font-weight:700;color:var(--yellow);letter-spacing:1px;margin-bottom:8px;margin-top:20px;padding-top:16px;border-top:1px solid var(--gray-700);">담당 역할</p>
             <p style="font-size:14px;color:#ccc;line-height:1.9;">RAG 파이프라인 설계(문서 로딩→청킹→임베딩→벡터 검색→답변 생성), 임베딩 캐싱 구조 구현, 대화 히스토리 체인 연결, Streamlit UI 구현</p>
           </div>
@@ -774,7 +774,7 @@ footer{text-align:center;padding:36px;border-top:1px solid var(--gray-700);font-
               <div class="diagram-card"><img src="images/diag_pgpt2.png" alt="RAG 아키텍처"></div>
               <div class="prob-section"><div class="prob-label label-red">문제 원인</div><div class="prob-content"><ul>
                 <li>사용자가 동일한 파일을 다시 업로드하거나 페이지를 새로고침할 때마다 임베딩을 처음부터 재생성했습니다.</li>
-                <li>Ollama 로컬 모델(Mistral)로 문서를 청크 단위로 임베딩하는 구조여서, 새로고침 또는 동일 파일 재업로드마다 4개 청크 전체를 재임베딩해 약 <strong>118초</strong> 대기가 발생했습니다.</li>
+                <li>Ollama 로컬 임베딩 모델(nomic-embed-text)로 문서를 청크 단위로 임베딩하는 구조여서, 새로고침 또는 동일 파일 재업로드마다 4개 청크 전체를 재임베딩해 약 <strong>118초</strong> 대기가 발생했습니다.</li>
                 <li>문서가 많아질수록 대기 시간이 선형적으로 증가하는 구조였습니다.</li>
               </ul></div></div>
               <div class="prob-section"><div class="prob-label label-green">해결 과정</div><div class="prob-content"><ul>
@@ -820,7 +820,7 @@ footer{text-align:center;padding:36px;border-top:1px solid var(--gray-700);font-
               <div class="prob-section"><div class="prob-label label-green">해결 과정</div><div class="prob-content">
                 <ul>
                   <li><strong>search_type="similarity_score_threshold"</strong>를 적용해 관련성 점수가 기준값 이하인 문서는 검색 결과에서 제외했습니다.</li>
-                  <li>로컬 모델(Mistral) 임베딩은 OpenAI보다 점수 범위가 낮게 나오는 특성을 고려해 threshold를 <strong>0.05</strong>로 설정했습니다.</li>
+                  <li>로컬 임베딩 모델(nomic-embed-text)은 OpenAI보다 점수 범위가 낮게 나오는 특성을 고려해 threshold를 <strong>0.05</strong>로 설정했습니다.</li>
                 </ul>
                 <pre style="background:#111;border:1px solid #333;border-radius:6px;padding:14px 18px;font-family:var(--font-mono);font-size:12px;color:#ccc;margin:10px 0;overflow-x:auto;"><span style="color:#888;"># 개선 전: 관련성 무관하게 무조건 4개 반환</span>
 retriever = vectorstore.as_retriever()
