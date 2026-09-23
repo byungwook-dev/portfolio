@@ -725,6 +725,7 @@ footer{text-align:center;padding:36px;border-top:1px solid var(--gray-700);font-
           <div class="panel-metric"><div class="panel-metric-val">96.6%</div><div class="panel-metric-name">임베딩 재생성 제거 (2.24초→0.08초)</div></div>
           <div class="panel-metric"><div class="panel-metric-val">맥락 인식</div><div class="panel-metric-name">대화 히스토리 체인 연결</div></div>
           <div class="panel-metric"><div class="panel-metric-val">할루시네이션↓</div><div class="panel-metric-name">프롬프트 제약 + 임계값 필터링</div></div>
+          <div class="panel-metric"><div class="panel-metric-val">AUC 0.58→0.901</div><div class="panel-metric-name">검색 품질 측정 체계 구축</div></div>
         </div>
 
         <div class="panel-links">
@@ -741,13 +742,15 @@ footer{text-align:center;padding:36px;border-top:1px solid var(--gray-700);font-
             <p style="font-size:14px;color:#ccc;line-height:1.9;margin-bottom:8px;">업로드한 문서에 대해 질문할 수 있는 로컬 기반 RAG 챗봇. 임베딩 모델과 LLM 모두 로컬(Ollama, 임베딩은 nomic-embed-text / LLM은 Mistral)에서 실행되어 외부 API 호출 없이 동작하며, 민감한 문서도 안전하게 처리할 수 있는 프라이빗 AI 시스템.</p>
             <p style="font-size:14px;color:#ccc;line-height:1.9;margin-bottom:16px;">OpenAI API를 사용하면 문서 데이터가 외부 서버로 전송되어 프라이버시 문제가 발생하고 API 호출 비용도 발생합니다. 임베딩과 LLM 모두 로컬에서 실행하는 <strong style="color:var(--yellow);">Ollama(임베딩: nomic-embed-text, LLM: Mistral)</strong> 조합을 선택해 "Private"GPT라는 이름처럼 데이터가 외부로 나가지 않는 구조를 구현했습니다.</p>
             <p style="font-size:13px;font-weight:700;color:var(--yellow);letter-spacing:1px;margin-bottom:8px;margin-top:20px;padding-top:16px;border-top:1px solid var(--gray-700);">담당 역할</p>
-            <p style="font-size:14px;color:#ccc;line-height:1.9;">RAG 파이프라인 설계(문서 로딩→청킹→임베딩→벡터 검색→답변 생성), 임베딩 캐싱 구조 구현, 대화 히스토리 체인 연결, Streamlit UI 구현</p>
+            <p style="font-size:14px;color:#ccc;line-height:1.9;">RAG 파이프라인 설계(문서 로딩→청킹→임베딩→벡터 검색→답변 생성), 임베딩 캐싱 구조 구현, 대화 히스토리 체인 연결, Streamlit UI 구현, <strong style="color:#fff;">검색 품질 평가 체계 구축</strong>(평가 세트 28문항 · AUC 지표 · 재현 가능한 측정 스크립트)</p>
           </div>
         </div>
 
         <div class="panel-box open">
-          <div class="panel-box-header" onclick="toggleBox(this)"><span>스크린샷 — UI 및 성능 검증</span><span class="panel-box-arrow">▼</span></div>
+          <div class="panel-box-header" onclick="toggleBox(this)"><span>스크린샷 — UI 동작 및 검색 품질 측정</span><span class="panel-box-arrow">▼</span></div>
           <div class="panel-box-body" style="padding:16px;">
+
+            <div style="font-size:12px;color:#888;letter-spacing:0.04em;margin:0 0 10px;">앱 동작</div>
             <div class="panel-gallery-grid" style="grid-template-columns:repeat(2,1fr);">
               <div class="panel-gallery-item" onclick="openLightbox(this.querySelector('img').src, this.querySelector('.panel-gallery-caption').textContent)">
                 <img src="images/pgpt1.png" alt=""><div class="panel-gallery-caption">① 문서 업로드 + 질문/답변</div>
@@ -762,6 +765,23 @@ footer{text-align:center;padding:36px;border-top:1px solid var(--gray-700);font-
                 <img src="images/pgpt3.png" alt=""><div class="panel-gallery-caption">④ 임베딩 캐싱 성능 — 2.24초 → 0.08초 (96.6% 단축)</div>
               </div>
             </div>
+
+            <div style="font-size:12px;color:#888;letter-spacing:0.04em;margin:24px 0 10px;">검색 품질 측정 로그</div>
+            <div class="panel-gallery-grid" style="grid-template-columns:repeat(2,1fr);">
+              <div class="panel-gallery-item" onclick="openLightbox(this.querySelector('img').src, this.querySelector('.panel-gallery-caption').textContent)">
+                <img src="images/eval1_baseline.png" alt=""><div class="panel-gallery-caption">⑤ 개선 전 베이스라인 — AUC 0.58 (동전 던지기 수준)</div>
+              </div>
+              <div class="panel-gallery-item" onclick="openLightbox(this.querySelector('img').src, this.querySelector('.panel-gallery-caption').textContent)">
+                <img src="images/eval2_tuned.png" alt=""><div class="panel-gallery-caption">⑥ 개선 후 28문항 재측정 — AUC 0.875</div>
+              </div>
+              <div class="panel-gallery-item" onclick="openLightbox(this.querySelector('img').src, this.querySelector('.panel-gallery-caption').textContent)">
+                <img src="images/eval3_compare.png" alt=""><div class="panel-gallery-caption">⑦ 설정별 AUC 비교 — 9회 실험 이력</div>
+              </div>
+              <div class="panel-gallery-item" onclick="openLightbox(this.querySelector('img').src, this.querySelector('.panel-gallery-caption').textContent)">
+                <img src="images/eval4_rerank.png" alt=""><div class="panel-gallery-caption">⑧ 2단계 LLM 판정 — AUC 0.901, 480배 지연</div>
+              </div>
+            </div>
+
           </div>
         </div>
 
@@ -774,7 +794,7 @@ footer{text-align:center;padding:36px;border-top:1px solid var(--gray-700);font-
               <div class="diagram-card"><img src="images/diag_pgpt2.png" alt="RAG 아키텍처"></div>
               <div class="prob-section"><div class="prob-label label-red">문제 원인</div><div class="prob-content"><ul>
                 <li>사용자가 동일한 파일을 다시 업로드하거나 페이지를 새로고침할 때마다 임베딩을 처음부터 재생성했습니다.</li>
-                <li>초기 구조에서는 LLM인 <strong>Mistral(7B)</strong>을 임베딩에도 함께 사용했습니다. 임베딩 전용 모델이 아니다 보니 청크 4개를 임베딩하는 데 약 <strong>118초</strong>가 걸렸고, 새로고침이나 재업로드마다 이 시간이 그대로 반복됐습니다.</li>
+                <li>초기 구조에서는 LLM인 <strong>Mistral(7B)</strong>을 임베딩에도 함께 사용했습니다. 임베딩 전용 모델이 아니다 보니 2.4KB 문서 하나를 임베딩하는 데 약 <strong>118초</strong>가 걸렸고, 새로고침이나 재업로드마다 이 시간이 그대로 반복됐습니다.</li>
                 <li>문서가 많아질수록 대기 시간이 선형적으로 증가하는 구조였습니다.</li>
               </ul></div></div>
               <div class="prob-section"><div class="prob-label label-green">해결 과정</div><div class="prob-content"><ul>
@@ -836,8 +856,43 @@ retriever = vectorstore.as_retriever(
               </div></div>
               <div class="prob-section"><div class="prob-label label-yellow">결과</div><div class="prob-content"><ul>
                 <li>문서와 무관한 질문("오늘 저녁 뭐 먹을까?")에 "모른다"고 응답하는 것을 확인했습니다. 이는 threshold 단독이 아니라 프롬프트 제약("주어진 context만 사용, 모르는 경우 모른다고 답변")과 함께 동작한 결과입니다.</li>
-                <li>점수 분포를 측정한 결과, 이 임베딩 모델에서는 <strong>threshold 하나로 관련/무관을 분리할 수 없다</strong>는 것을 수치로 확인했습니다. 어떤 값을 잡아도 관련 문서가 탈락하거나 무관한 문서가 통과합니다.</li>
+                <li>점수 분포를 측정한 결과, 관련 문서를 전부 살리면서 무관한 문서를 전부 걸러내는 <strong>완전한 threshold는 존재하지 않는다</strong>는 것을 수치로 확인했습니다. 어떤 값을 잡아도 관련 문서가 탈락하거나 무관한 문서가 통과합니다. 그렇다면 남는 질문은 "어디서 자를 것인가"가 아니라 <strong>"지금 점수가 관련과 무관을 구분하기는 하는가"</strong>였고, 이것이 4번 작업의 출발점이 됐습니다.</li>
               </ul></div></div>
+            </div>
+
+            <div class="problem-block">
+              <div style="font-size:15px;font-weight:700;color:var(--white);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--gray-700);">4. 검색 품질을 측정할 기준이 없어 개선을 증명할 수 없는 문제</div>
+              <div class="diagram-card-title">청크 크기별 검색 분리도(AUC) — 장난감 문서 vs 실제 문서</div>
+              <div class="diagram-card"><img src="images/diag_pgpt3.png" alt="AUC 곡선"></div>
+              <div class="prob-section"><div class="prob-label label-red">문제 원인</div><div class="prob-content"><ul>
+                <li>3번에서 임계값을 도입했지만, 실측 결과 관련/무관 점수 구간이 겹쳐 <strong>어떤 값으로도 완전한 분리가 되지 않았습니다.</strong> 0.05는 사실상 필터가 꺼진 상태였습니다.</li>
+                <li>더 근본적인 문제는 <strong>검색이 얼마나 잘 되는지 판단할 기준 자체가 없었다</strong>는 점입니다. 설정을 바꿔도 좋아졌는지 나빠졌는지 말할 수 없었습니다.</li>
+                <li>평가할 질문 세트도, 비교할 지표도, 재현 가능한 측정 절차도 없어 개선을 주장할 근거가 없었습니다.</li>
+              </ul></div></div>
+              <div class="prob-section"><div class="prob-label label-green">해결 과정</div><div class="prob-content">
+                <ul>
+                  <li><strong>평가 세트 28문항</strong>을 구축했습니다. 관련 12 / 무관-일상 5 / 무관-타기술 5 / <strong>무관-인접 6</strong>으로 나눴습니다. 인접 질문은 같은 도메인(검색·NLP)인데 코퍼스에 답이 없는 질문으로, 어휘가 겹쳐 임베딩이 가장 속기 쉬운 구간입니다.</li>
+                  <li>지표로 <strong>AUC</strong>를 채택했습니다. 임계값과 무관하게 <strong>분리 가능성 자체</strong>를 재는 값입니다. 분리가 안 되는 상태에서는 어떤 임계값도 의미가 없으므로, 임계값을 고르기 전에 먼저 확인해야 하는 지표라고 판단했습니다.</li>
+                  <li>코퍼스를 직접 작성한 2.4KB 문서에서 <strong>위키백과 14.5KB</strong>로 교체했습니다. 직접 쓴 문서는 한 줄에 한 사실씩 정리돼 있어 실제 문서의 문단 구조를 대표하지 못했습니다.</li>
+                  <li>변수를 <strong>하나씩만</strong> 바꾸며 재측정했습니다. 접두어 → 청크 크기 → 2단계 판정 순으로 진행해 각 변경의 기여도를 분리했습니다.</li>
+                  <li>마지막으로 로컬 Mistral에 <strong>"이 문서로 이 질문에 답할 수 있는가"</strong>를 직접 묻는 2단계 판정을 붙였습니다. 유사도는 "닮았는가"만 보고 "답이 되는가"는 보지 못하기 때문입니다.</li>
+                </ul>
+                <div class="keyword-wrap"><span class="keyword-tag">AUC</span><span class="keyword-tag">평가 세트 28문항</span><span class="keyword-tag">RecursiveCharacterTextSplitter</span><span class="keyword-tag">search_query / search_document</span><span class="keyword-tag">2단계 검색</span></div>
+              </div></div>
+              <div class="prob-section"><div class="prob-label label-yellow">결과</div><div class="prob-content">
+                <div class="metrics-wrap"><table class="metrics-table"><thead><tr><th>구성</th><th>AUC</th><th>정밀도</th><th>재현율</th><th>질문당 소요</th></tr></thead><tbody>
+                  <tr><td>임베딩 (접두어 없음)</td><td class="metric-bad">0.833</td><td>0.73</td><td>0.92</td><td class="metric-good">약 65ms</td></tr>
+                  <tr><td>임베딩 (접두어 적용)</td><td>0.875</td><td>0.82</td><td>0.75</td><td class="metric-good">약 65ms</td></tr>
+                  <tr><td>+ LLM 2단계 판정</td><td class="metric-good">0.901</td><td class="metric-good">0.85</td><td class="metric-good">0.92</td><td class="metric-bad">29,697ms</td></tr>
+                </tbody></table></div>
+                <ul style="margin-top:12px;">
+                  <li>측정 기준이 생기면서 <strong>개선을 수치로 증명할 수 있게 됐습니다.</strong> 직접 작성한 문서로 처음 잰 AUC는 0.58로 동전 던지기 수준이었고, 그 문서가 실제 문서를 대표하지 못한다고 판단해 위키백과 코퍼스로 교체했습니다. 같은 코퍼스·같은 28문항 기준으로 접두어 없는 임베딩 0.833 → 접두어 적용 0.875 → LLM 2단계 판정 <strong>0.901</strong>까지 올렸습니다.</li>
+                  <li><strong>장난감 문서에서 얻은 결론이 실제 문서에서 뒤집혔습니다.</strong> 직접 쓴 문서에서는 청크가 작을수록 좋았지만(150자 AUC 0.99), 위키백과 문서에서는 클수록 좋았습니다.(600자 AUC 0.875) 작은 청크가 도메인 어휘만으로 채워진 조각이 되어 답이 없는 인접 질문을 더 강하게 끌어당겼기 때문입니다.</li>
+                  <li>2단계 판정은 AUC를 0.875 → 0.901로 올렸지만 <strong>질문당 29.7초, 480배 느려져</strong> 현재 구성에서는 채택할 수 없다고 판단했습니다. 정확도를 얻는 대가를 수치로 확인한 지점입니다.</li>
+                  <li>판정 프롬프트에서 문장 하나를 조정하자 <strong>정밀도 1.00·재현율 0.67에서 정밀도 0.85·재현율 0.92</strong>로 바뀌었습니다. 같은 모델이라도 지시문에 따라 보수성이 크게 달라진다는 것을 확인했습니다.</li>
+                  <li>모든 측정은 <code>eval/evaluate.py</code>, <code>eval/rerank.py</code>로 <strong>재실행 가능</strong>하며 결과는 JSON으로 저장됩니다. 설정을 바꾼 뒤 같은 기준으로 다시 비교할 수 있습니다.</li>
+                </ul>
+              </div></div>
             </div>
           </div>
         </div>
